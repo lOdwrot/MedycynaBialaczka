@@ -1,0 +1,1 @@
+Projekt na zastosowanie informatyki w medycynie.
