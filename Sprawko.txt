@@ -1,0 +1,43 @@
+1. Zapoznanie z algorytmami:
+Knn - k-najbliższych sąsiadów, ze znanych obiektów wybieramy k najbliższych klasyfikowanemu obiektowi. Nowy obiekt zostaje przypisany do klasy, w której znajduje się najwięcej z k reprezentantów.
+
+NM - dla każdej klasy na podstawie wszystkich obiektów wyliczana jest średnia centroida. Obiekt przypisywane jest na podstawie minimalnej odległości do centroidy.
+
+2. Materiały Empiryczne:
+Zadanie polega na zbudowaniu klasyfikatora, który na podstawie cech określi typ białaczki u dziecka.
+
+Możliwe klasy (jednostki chorobowe białaczki):
+1. L1 - type
+2. L2 - type
+3. L3 - type
+4. Undifferentation
+5. Differentation in part
+6. Granuocylosisi
+7. Granua mononucleaw
+8. Mononucleacyble
+9. Redikaukemia
+10 Subatue grandblacyta
+11. Granulacytarna
+12. Lymphocytia
+13. Granue mononclea
+14. Mononuclea
+15. Lymphosarcoma leukemia
+16. Pamacea Leukemia
+17. Multicapilary be laukemia
+18. Acicople granulotyne leukemia
+19. Basaphi granulocyte leukemia
+20. Macronuclacycle teuekema
+
+Wszystkie dostarczone cechy są cechami dyskretnymi (opis dołączony w osobnym pliku pdf)
+Cechy Binarne: 1, 3, 5, 6, 7, 8, 9, 10, 11, 12, 15, 16, 20
+Cechy wielowartościowe: 2, 4, 13, 14, , 17, 18, 19
+
+3. Selekcja Cech
+Reduces Overfitting: Less redundant data means less opportunity to make decisions based on noise.
+Improves Accuracy: Less misleading data means modeling accuracy improves.
+Reduces Training Time: Less data means that algorithms train faster.
+https://machinelearningmastery.com/feature-selection-machine-learning-python/
+
+Tutaj trzeba opisać różne metody, my posłużymy się chi squared (chi^2) statistical test.
+
+4. 
