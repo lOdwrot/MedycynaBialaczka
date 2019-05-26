@@ -11,7 +11,7 @@ from stats import calculateStatsForKMeans
 from dataLoad import getDataSetLeukemia, getDataSetIris
 
 # Load Data
-data = getDataSetLeukemia()
+data = getDataSetLeukemia(False)
 # data = getDataSetIris()
 X = data.drop('K', axis = 1)
 y = data.K
@@ -31,7 +31,7 @@ sortedFeatures = list(map(lambda x: x[1], sortedFeatures))
 print ('Features Ranking', sortedFeatures)
 
 # Count stats for params
-for i in range (1, len(sortedFeatures)):
+for i in range (1, len(sortedFeatures) + 1):
     subData = data.copy()
     for dropedFeatureIndex in range (i, len(sortedFeatures)):
         subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
