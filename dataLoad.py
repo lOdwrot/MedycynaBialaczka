@@ -1,10 +1,19 @@
 import pandas as pd
+from sklearn.datasets import load_iris
+import numpy as np
 
-data=pd.read_csv("./data/data.csv", sep =";")
-data.info()
+def getDataSetLeukemia(normalized=False):
+    url = 'https://raw.githubusercontent.com/lOdwrot/MedycynaBialaczka/master/data/data.csv'
+    data=pd.read_csv(url, sep =";")
+    features = list(filter(lambda x: x != 'K', data.columns))
+    if normalized == True:
+        data[features] = data[features].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
+    return data
 
-X = data.drop('K', axis = 1)
-y = data.K
-
-# print(X.sample(5))
+def getDataSetIris():
+    iris = load_iris()
+    data = pd.DataFrame(data= np.c_[iris['data'], iris['target']],
+                        columns= iris['feature_names'] + ['target'])
+    data = data.rename(index=str, columns={"target": "K"})
+    return data
 
