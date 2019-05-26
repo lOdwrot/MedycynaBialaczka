@@ -43,7 +43,7 @@ def calculateStatsForKMeans(data, k=2, metric='minkowski'):
     tFScore += fscore
     
     # Check second fold
-    neigh = KNeighborsClassifier(n_neighbors=k)
+    neigh = KNeighborsClassifier(n_neighbors=k, metric=metric)
     Xtrain = train2.drop('K', axis = 1)
     Ytrain = train2.K
     neigh.fit(Xtrain, Ytrain)
