@@ -13,3 +13,6 @@ __pycache__
 *.gz
 *.pdf
 *.toc
+
+# except
+!requirements.txt
