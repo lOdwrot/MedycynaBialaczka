@@ -14,19 +14,19 @@ from dataLoad import getDataSetLeukemia, getDataSetIris
 import seaborn as sns
 
 # Load Data (param whether data should be normalized)
-data = getDataSetLeukemia(False)
-# data = getDataSetIris()
+# data = getDataSetLeukemia(False)
+data = getDataSetIris()
 # K - class
 X = data.drop('K', axis = 1)
 y = data.K
 
-'''
+
 # DANE O INDEXIE
 print(f'dtypes: {data.dtypes}')
 print(f'y: {y}')
 print(f'y[-1]: {y.iloc[-1]}')
 print(f'type(y[-1]): {type(y.iloc[-1])}')
-'''
+
 
 # Build features ranking
 test = SelectKBest(score_func=chi2, k=2)
@@ -53,6 +53,7 @@ print(f'Wymiar danyych: {data.ndim}')
 print(f'Info: {data.info(verbose=True)}')
 print(f'data.T: {data.T}')
 '''
+
 
 
 ''' 
