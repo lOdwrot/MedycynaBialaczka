@@ -78,14 +78,8 @@ sns.set_palette(sns.color_palette("hls", len(sortedFeatures)))
 # sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='kde', dropna=True, kind='scatter')
 sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='hist', dropna=True, kind='scatter')
 # plt.show()
-plt.savefig('Wykres_cech.png')
+plt.savefig('Feature_plot.png')
 
-# FILENAME VARIABLE
-filename = 'result.txt'
-
-# Wyniki
-print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
-print (f'\nResults:', file=open(filename, 'a'))
 k_list = list(range(1, 50))
 f_scores = []
 
@@ -95,7 +89,7 @@ f_scores = []
 for k in k_list:
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'euclidean')
     f_scores.append(fscore)
-    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+    # print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
 sns.set_style("whitegrid")
 
@@ -108,8 +102,8 @@ plt.plot(k_list, f_scores)
 plt.savefig('Optimal_neighbors_euclidean.png')
 best_k_euc = k_list[f_scores.index(max(f_scores))]
 print(f'Optimal neighbors euclidean: {best_k_euc}', file=open('Diffrent_K_euclidean.txt', 'w'))
-Optimal_neighbors_data = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
-print(f'Data:\n {Optimal_neighbors_data.to_string()}', file=open('Diffrent_K_euclidean.txt', 'a'))
+Optimal_neighbors_data_euc = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
+print(f'Data:\n {Optimal_neighbors_data_euc.to_string()}', file=open('Diffrent_K_euclidean.txt', 'a'))
 
 # --------------------------------------------------------
 
@@ -119,7 +113,7 @@ f_scores = []
 for k in k_list:
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'manhattan')
     f_scores.append(fscore)
-    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+    # print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
 
 plt.figure()
@@ -131,28 +125,87 @@ plt.plot(k_list, f_scores)
 plt.savefig('Optimal_neighbors_manhattan.png')
 best_k_man = k_list[f_scores.index(max(f_scores))]
 print(f'Optimal neighbors manhattan: {best_k_man}', file=open('Diffrent_K_manhattan.txt', 'w'))
-Optimal_neighbors_data = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
-print(f'Data:\n {Optimal_neighbors_data.to_string()}', file=open('Diffrent_K_manhattan.txt', 'a'))
+Optimal_neighbors_data_man = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
+print(f'Data:\n {Optimal_neighbors_data_man.to_string()}', file=open('Diffrent_K_manhattan.txt', 'a'))
 
 # --------------------------------------------------------
 
-# RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA
-for i in range (1, len(sortedFeatures) + 1):
+# FILENAME VARIABLE
+filename = 'Features_euc.txt'
+
+# Wyniki
+print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
+print (f'\nResults:', file=open(filename, 'a'))
+
+feature_list = range(1, len(sortedFeatures) + 1)
+f_scores_euc = []
+
+# RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - EUC
+for feature in feature_list:
     subData = data.copy()
-    for dropedFeatureIndex in range (i, len(sortedFeatures)):
+    for dropedFeatureIndex in range (feature, len(sortedFeatures)):
         subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
-    print(f'Stats for features: {i}', file=open(filename, 'a'))
+    print(f'Stats for features: {feature}', file=open(filename, 'a'))
     # Print stats For NM
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(subData, 'euclidean', True)
     print(f'Stats NM: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
     # Print stats for best_k_euc-NN
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_euc, 'euclidean')
-    print(f'Stats 1-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
-
-    # # Print stats for best_k_man-NN
-    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_man, 'euclidean')
-    print(f'Stats 10-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+    f_scores_euc.append(fscore)
+    print(f'Stats {best_k_euc}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
     print(f'------------------', file=open(filename, 'a'))
-'''
+
+plt.figure()
+plt.title('The optimal number of features(metric: euclidean)', fontweight='bold')
+plt.xlabel('Number of Features')
+plt.ylabel('fscore',)
+plt.plot(feature_list, f_scores_euc)
+
+plt.savefig('Optimal_features_euclidean.png')
+best_feat_euc = feature_list[f_scores_euc.index(max(f_scores_euc))]
+print(f'Optimal features euclidean: {best_feat_euc}', file=open('Diffrent_Features_euclidean.txt', 'w'))
+Optimal_features_data_euc = pd.DataFrame(list(zip(feature_list, f_scores_euc)), columns = ['Feature', 'fscore'])
+print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open('Diffrent_Features_euclidean.txt', 'a'))
+
+# --------------------------------------------------------
+
+# FILENAME VARIABLE
+filename = 'Features_man.txt'
+
+# Wyniki
+print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
+print (f'\nResults:', file=open(filename, 'a'))
+
+feature_list = range(1, len(sortedFeatures) + 1)
+f_scores_man = []
+
+# RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - MAN
+for feature in feature_list:
+    subData = data.copy()
+    for dropedFeatureIndex in range (feature, len(sortedFeatures)):
+        subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
+    print(f'Stats for features: {feature}', file=open(filename, 'a'))
+    # Print stats For NM
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(subData, 'manhattan', True)
+    print(f'Stats NM: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+
+    # Print stats for best_k_man-NN
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_man, 'manhattan')
+    f_scores_man.append(fscore)
+    print(f'Stats {best_k_man}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+
+    print(f'------------------', file=open(filename, 'a'))
+
+plt.figure()
+plt.title('The optimal number of features(metric: manhattan)', fontweight='bold')
+plt.xlabel('Number of Features')
+plt.ylabel('fscore',)
+plt.plot(feature_list, f_scores_man)
+
+plt.savefig('Optimal_features_manhattan.png')
+best_feat_man = feature_list[f_scores_man.index(max(f_scores_man))]
+print(f'Optimal features manhattan: {best_feat_man}', file=open('Diffrent_Features_manhattan.txt', 'w'))
+Optimal_features_data_man = pd.DataFrame(list(zip(feature_list, f_scores_man)), columns = ['Feature', 'fscore'])
+print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open('Diffrent_Features_manhattan.txt', 'a'))
