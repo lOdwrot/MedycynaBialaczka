@@ -14,11 +14,10 @@ from dataLoad import getDataSetLeukemia, getDataSetIris
 import seaborn as sns
 
 # Load Data (param whether data should be normalized)
-# data = getDataSetLeukemia(False)
-data = getDataSetIris()
+data = getDataSetLeukemia(False)
+# data = getDataSetIris()
 # K - class
 data.K = data.K.astype(str)
-data.K.replace('0.0', 'iris setosa')
 X = data.drop('K', axis = 1)
 y = data.K
 
