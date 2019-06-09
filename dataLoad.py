@@ -4,11 +4,11 @@ import numpy as np
 
 def getDataSetLeukemia(normalized=False):
     url = 'https://raw.githubusercontent.com/lOdwrot/MedycynaBialaczka/master/data/data.csv'
-    data = pd.read_csv(url, sep =";", dtype='float64')
-    cols = data.columns.tolist()
-    cols = cols[1:] + cols[:1]
-    data = data[cols]
+    data = pd.read_csv(url, sep =";", dtype='intc')
+    data.columns = ['K', 'Temperatura', 'Anemia', 'Stopień krwawienia', 'Miejsce krwawienia', 'Ból kości', 'Wrażliwość mostka', 'Powiększenie węzłów chłonnych', 'Powiększenie wątroby', 'Centralny układ nerwowy', 'Powiększenie jąder', 'Uszkodzenie w sercu, płucach, nerce', 'Gałka oczna', 'Poziom WBC', 'Obniżenie poziomu RBC', 'Liczba płytek krwi', 'Niedojrzałe komórki', 'Stan pobudzenia szpiku', 'Główne komórki szpiku', 'Poziom limfocytów', 'Reakcja']
+    print(data)
     features = list(filter(lambda x: x != 'K', data.columns))
+    print(f'Features: {features}')
     if normalized == True:
         data[features] = data[features].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
     return data
