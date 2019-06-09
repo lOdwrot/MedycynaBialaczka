@@ -12,3 +12,4 @@ __pycache__
 *.xml
 *.gz
 *.pdf
+*.toc
