@@ -86,8 +86,52 @@ filename = 'result.txt'
 # Wyniki
 print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
 print (f'\nResults:', file=open(filename, 'a'))
+k_list = list(range(1, 50))
+f_scores = []
 
 
+# RÓŻNE WARTOŚCI K - EUKLIDIAN
+for k in k_list:
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'euclidean')
+    f_scores.append(fscore)
+    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+
+sns.set_style("whitegrid")
+
+plt.figure()
+plt.title('The optimal number of neighbors(metric: euklidean)', fontweight='bold')
+plt.xlabel('Number of Neighbors K')
+plt.ylabel('fscore',)
+plt.plot(k_list, f_scores)
+
+plt.savefig('Optimal_neighbors_euklidean.png')
+best_k = k_list[f_scores.index(max(f_scores))]
+print(f'Optimal neighbors euklidean: {best_k}', file=open('Diffrent_K_euklidean.txt', 'w'))
+Optimal_neighbors_data = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbour', 'fscore'])
+print(f'Data:\n {Optimal_neighbors_data.to_string()}', file=open('Diffrent_K_euklidean.txt', 'a'))
+
+k_list = list(range(1, 50))
+f_scores = []
+# RÓŻNE WARTOŚCI K - MANHATTAN
+for k in k_list:
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'manhattan')
+    f_scores.append(fscore)
+    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+
+
+plt.figure()
+plt.title('The optimal number of neighbors(metric: manhattan)', fontweight='bold')
+plt.xlabel('Number of Neighbors K')
+plt.ylabel('fscore',)
+plt.plot(k_list, f_scores)
+
+plt.savefig('Optimal_neighbors_manhattan.png')
+best_k = k_list[f_scores.index(max(f_scores))]
+print(f'Optimal neighbors manhattan: {best_k}', file=open('Diffrent_K_manhattan.txt', 'w'))
+Optimal_neighbors_data = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbour', 'fscore'])
+print(f'Data:\n {Optimal_neighbors_data.to_string()}', file=open('Diffrent_K_manhattan.txt', 'a'))
+
+'''
 # Count stats for params
 for i in range (1, len(sortedFeatures) + 1):
     subData = data.copy()
@@ -110,3 +154,4 @@ for i in range (1, len(sortedFeatures) + 1):
     # accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, 20, 'euclidean')
     # print(f'Stats 20-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
     print(f'------------------', file=open(filename, 'a'))
+'''
