@@ -13,6 +13,11 @@ from stats import calculateStatsForKMeans, calculateStatsForNM
 from dataLoad import getDataSetLeukemia, getDataSetIris
 import seaborn as sns
 
+best_data_euc_norm = None
+best_data_man_norm = None
+best_data_euc_not_norm = None
+best_data_man_not_norm = None
+
 # Load Data (param whether data should be normalized)
 for norm_type in ['Norm', 'NotNorm']:
     data = getDataSetLeukemia(True if norm_type == 'Norm' else False)
@@ -34,15 +39,17 @@ for norm_type in ['Norm', 'NotNorm']:
     sortedFeatures = sorted(scores, reverse = True)
     sortedFeatures = list(map(lambda x: x[1], sortedFeatures))
 
-    # WYKRES
+    print (f'Features Ranking {sortedFeatures}', file=open('results/features_ranking.txt', 'w'))
 
+    # WYKRES
     sns.set()
+    '''
     sns.set_palette(sns.color_palette("hls", len(sortedFeatures)))
     # sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='kde', dropna=True, kind='scatter')
     sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='hist', dropna=True, kind='scatter')
     # plt.show()
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png')
-
+    '''
 
     # --------------------------------------------------------
 
@@ -101,84 +108,98 @@ for norm_type in ['Norm', 'NotNorm']:
     print(f'Data:\n {Optimal_neighbors_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
 
     # --------------------------------------------------------
-
-    # FILENAME VARIABLE
-    filename = 'results/' + str(norm_type) + '/' + str(norm_type) + '_Features_euc.txt'
-
-    # Wyniki
-    print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
-    print (f'\nResults:', file=open(filename, 'a'))
-
     feature_list = range(1, len(sortedFeatures) + 1)
     f_scores_euc = []
+    f_scores_NM_euc = []
+    sub_dates_euc = []
 
     # RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - EUC
     for feature in feature_list:
         subData = data.copy()
         for dropedFeatureIndex in range (feature, len(sortedFeatures)):
             subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
-        print(f'Stats for features: {feature}', file=open(filename, 'a'))
+        sub_dates_euc.append(subData)
         # Print stats For NM
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(subData, 'euclidean', True)
-        print(f'Stats NM: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
         # Print stats for best_k_euc-NN
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_euc, 'euclidean')
         f_scores_euc.append(fscore)
-        print(f'Stats {best_k_euc}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
-
-        print(f'------------------', file=open(filename, 'a'))
 
     plt.figure()
     plt.title('The optimal number of features(metric: euclidean)', fontweight='bold')
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
-    plt.plot(feature_list, f_scores_euc)
+    plt.plot(feature_list, f_scores_NM_euc)
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_euclidean.png')
 
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_euclidean.png')
     best_feat_euc = feature_list[f_scores_euc.index(max(f_scores_euc))]
+    best_feat_NM_euc = feature_list[f_scores_NM_euc.index(max(f_scores_NM_euc))]
+
     print(f'Optimal features euclidean: {best_feat_euc} for best k: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'w'))
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(sub_dates_euc[best_feat_euc - 1], best_k_euc, 'euclidean')
+    print(f'Stats {best_k_euc}-NN, Features {best_feat_euc}: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'w'))
 
     Optimal_features_data_euc = pd.DataFrame(list(zip(feature_list, f_scores_euc)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'a'))
 
+
+    print(f'Optimal features euclidean: {best_feat_NM_euc} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'w'))
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_euc[best_feat_NM_euc - 1], 'euclidean', True)
+    print(f'Stats NM, Features {best_feat_NM_euc}: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'w'))
+
+    Optimal_features_data_NM_euc = pd.DataFrame(list(zip(feature_list, f_scores_NM_euc)), columns = ['Feature', 'fscore'])
+    print(f'Data:\n {Optimal_features_data_NM_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'a'))
+
     # --------------------------------------------------------
-
-    # FILENAME VARIABLE
-    filename = 'results/' + str(norm_type) + '/' + str(norm_type) + '_Features_man.txt'
-
-    # Wyniki
-    print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
-    print (f'\nResults:', file=open(filename, 'a'))
-
     feature_list = range(1, len(sortedFeatures) + 1)
     f_scores_man = []
+    f_scores_NM_man = []
+    sub_dates_man = []
 
     # RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - MAN
     for feature in feature_list:
         subData = data.copy()
         for dropedFeatureIndex in range (feature, len(sortedFeatures)):
             subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
-        print(f'Stats for features: {feature}', file=open(filename, 'a'))
+        sub_dates_man.append(subData)
+
         # Print stats For NM
-        accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(subData, 'manhattan', True)
-        print(f'Stats NM: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
+        accuracyNM, precisionNM, recallNM, fscoreNM, confusionMatrixNM = calculateStatsForNM(subData, 'manhattan', True)
+        f_scores_NM_man.append(fscoreNM)
 
         # Print stats for best_k_man-NN
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_man, 'manhattan')
         f_scores_man.append(fscore)
-        print(f'Stats {best_k_man}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
-
-        print(f'------------------', file=open(filename, 'a'))
 
     plt.figure()
     plt.title('The optimal number of features(metric: manhattan)', fontweight='bold')
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_man)
-
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_manhattan.png')
+
+    plt.figure()
+    plt.title('The optimal number of features(metric: manhattan)', fontweight='bold')
+    plt.xlabel('Number of Features')
+    plt.ylabel('fscore',)
+    plt.plot(feature_list, f_scores_NM_man)
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_manhattan.png')
+
     best_feat_man = feature_list[f_scores_man.index(max(f_scores_man))]
-    print(f'Optimal features manhattan: {best_feat_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'w'))
+    best_feat_NM_man = feature_list[f_scores_NM_man.index(max(f_scores_NM_man))]
+
+    print(f'Optimal features manhattan: {best_feat_man} for best k: {best_k_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'w'))
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(sub_dates_man[best_feat_man - 1], best_k_man, 'manhattan')
+    print(f'Stats {best_k_man}-NN, Features {best_feat_man}: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'w'))
+
     Optimal_features_data_man = pd.DataFrame(list(zip(feature_list, f_scores_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'a'))
+
+
+    print(f'Optimal features manhattan: {best_feat_NM_man} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'w'))
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_man[best_feat_NM_man - 1], 'manhattan', True)
+    print(f'Stats NM, Features {best_feat_NM_man}: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'w'))
+
+    Optimal_features_data_NM_man = pd.DataFrame(list(zip(feature_list, f_scores_NM_man)), columns = ['Feature', 'fscore'])
+    print(f'Data:\n {Optimal_features_data_NM_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'a'))
