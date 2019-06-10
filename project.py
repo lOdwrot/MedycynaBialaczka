@@ -153,6 +153,13 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_euc = pd.DataFrame(list(zip(feature_list, f_scores_euc)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'a'))
 
+    plt.figure()
+    plt.title('Confusion Matrix KNN', fontweight='bold')
+    plt.xlabel('Features')
+    plt.ylabel('Features',)
+    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    sns.heatmap(df_cm, cmap="Blues")
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_euclidean.png')
 
     print(f'Optimal features euclidean: {best_feat_NM_euc} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'w'))
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_euc[best_feat_NM_euc - 1], 'euclidean', True)
@@ -160,6 +167,15 @@ for norm_type in ['Norm', 'NotNorm']:
 
     Optimal_features_data_NM_euc = pd.DataFrame(list(zip(feature_list, f_scores_NM_euc)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'a'))
+
+    plt.figure()
+    plt.title('Confusion Matrix NM', fontweight='bold')
+    plt.xlabel('Features')
+    plt.ylabel('Features',)
+    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.coluns))
+    sns.heatmap(df_cm, cmap="Blues")
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png')
+
 
     # --------------------------------------------------------
     feature_list = range(1, len(sortedFeatures) + 1)
@@ -207,6 +223,13 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_man = pd.DataFrame(list(zip(feature_list, f_scores_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'a'))
 
+    plt.figure()
+    plt.title('Confusion Matrix KNN', fontweight='bold')
+    plt.xlabel('Features')
+    plt.ylabel('Features',)
+    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    sns.heatmap(df_cm, cmap="Blues")
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_manhattan.png')
 
     print(f'Optimal features manhattan: {best_feat_NM_man} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'w'))
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_man[best_feat_NM_man - 1], 'manhattan', True)
@@ -215,18 +238,12 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_NM_man = pd.DataFrame(list(zip(feature_list, f_scores_NM_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'a'))
     
-    '''
-    print(type(confusionMatrix))
-    print(sub_dates_man[best_feat_NM_man - 1])
-    print(confusionMatrix.shape)
 
-    df_cm = pd.DataFrame(array, index = [i for i in "ABCDEFGHIJK"],
-                  columns = [i for i in "ABCDEFGHIJK"])
-    sn.heatmap(df_cm, annot=True)
-    '''
-    print(type(sub_dates_man))
-    print(len(sub_dates_man))
-    # print(sub_dates_man)
-    print(len(sub_dates_man[0]))
-    print(len(sub_dates_man[10]))
+    plt.figure()
+    plt.title('Confusion Matrix NM', fontweight='bold')
+    plt.xlabel('Features')
+    plt.ylabel('Features',)
+    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    sns.heatmap(df_cm, cmap="Blues")
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_manhattan.png')
     
