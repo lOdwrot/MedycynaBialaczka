@@ -66,7 +66,7 @@ for norm_type in ['Norm', 'NotNorm']:
     best_k_euc = k_list[f_scores.index(max(f_scores))]
     print(f'Optimal neighbors euclidean: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'w'))
 
-    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_man, 'manhattan')
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_euc, 'manhattan')
     print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
 
 
