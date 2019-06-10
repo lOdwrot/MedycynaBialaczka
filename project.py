@@ -46,7 +46,7 @@ for norm_type in ['Norm', 'NotNorm']:
 
     # --------------------------------------------------------
 
-    k_list = list(range(1, 50))
+    k_list = list(range(1, 50, 2))
     f_scores = []
 
     # RÓŻNE WARTOŚCI K - EUCLIDIAN
@@ -70,7 +70,7 @@ for norm_type in ['Norm', 'NotNorm']:
 
     # --------------------------------------------------------
 
-    k_list = list(range(1, 50))
+    k_list = list(range(1, 50, 2))
     f_scores = []
     # RÓŻNE WARTOŚCI K - MANHATTAN
     for k in k_list:
