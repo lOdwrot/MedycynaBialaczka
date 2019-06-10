@@ -22,7 +22,7 @@ for norm_type in ['Norm', 'NotNorm']:
     y = data.K
 
     # Build features ranking
-    test = SelectKBest(score_func=chi2, k=10)
+    test = SelectKBest(score_func=chi2, k=2)
     test.fit(X, y)
 
     scores = []
