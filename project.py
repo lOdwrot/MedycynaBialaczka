@@ -119,8 +119,10 @@ for norm_type in ['Norm', 'NotNorm']:
         for dropedFeatureIndex in range (feature, len(sortedFeatures)):
             subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
         sub_dates_euc.append(subData)
+
         # Print stats For NM
-        accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(subData, 'euclidean', True)
+        accuracyNM, precisionNM, recallNM, fscoreNM, confusionMatrixNM = calculateStatsForNM(subData, 'euclidean', True)
+        f_scores_NM_euc.append(fscoreNM)
 
         # Print stats for best_k_euc-NN
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_euc, 'euclidean')
