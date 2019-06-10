@@ -67,7 +67,7 @@ for norm_type in ['Norm', 'NotNorm']:
     print(f'Optimal neighbors euclidean: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'w'))
 
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_euc, 'manhattan')
-    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
+    print(f'Stats {str(best_k_euc)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
 
 
     Optimal_neighbors_data_euc = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
@@ -94,7 +94,7 @@ for norm_type in ['Norm', 'NotNorm']:
     print(f'Optimal neighbors manhattan: {best_k_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'w'))
 
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_man, 'manhattan')
-    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
+    print(f'Stats {str(best_k_man)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
 
 
     Optimal_neighbors_data_man = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
