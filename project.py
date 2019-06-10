@@ -18,7 +18,6 @@ for norm_type in ['Norm', 'NotNorm']:
     data = getDataSetLeukemia(True if norm_type == 'Norm' else False)
     # data = getDataSetIris()
     # K - class
-    data.K = data.K.astype(str)
     X = data.drop('K', axis = 1)
     y = data.K
 
