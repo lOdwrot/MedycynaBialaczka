@@ -22,7 +22,7 @@ for norm_type in ['Norm', 'NotNorm']:
     y = data.K
 
     # Build features ranking
-    test = SelectKBest(score_func=chi2, k=2)
+    test = SelectKBest(score_func=chi2, k=10)
     test.fit(X, y)
 
     scores = []
@@ -34,7 +34,7 @@ for norm_type in ['Norm', 'NotNorm']:
     sortedFeatures = sorted(scores, reverse = True)
     sortedFeatures = list(map(lambda x: x[1], sortedFeatures))
 
-    print (f'Features Ranking {sortedFeatures}', file=open('results/features_ranking.txt', 'w'))
+    print (f'Features Ranking {sortedFeatures}', file=open('results/' + str(norm_type) + '_features_ranking.txt', 'w'))
 
     # WYKRES
     sns.set()
