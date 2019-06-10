@@ -41,7 +41,7 @@ for norm_type in ['Norm', 'NotNorm']:
     # sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='kde', dropna=True, kind='scatter')
     sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='hist', dropna=True, kind='scatter')
     # plt.show()
-    plt.savefig(str(norm_type) + '_Feature_plot.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png')
 
 
     # --------------------------------------------------------
@@ -62,11 +62,16 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(k_list, f_scores)
 
-    plt.savefig(str(norm_type) + '_Optimal_neighbors_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_euclidean.png')
     best_k_euc = k_list[f_scores.index(max(f_scores))]
-    print(f'Optimal neighbors euclidean: {best_k_euc}', file=open(str(norm_type) + '_Diffrent_K_euclidean.txt', 'w'))
+    print(f'Optimal neighbors euclidean: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'w'))
+
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_man, 'manhattan')
+    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
+
+
     Optimal_neighbors_data_euc = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
-    print(f'Data:\n {Optimal_neighbors_data_euc.to_string()}', file=open(str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
+    print(f'Data:\n {Optimal_neighbors_data_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'a'))
 
     # --------------------------------------------------------
 
@@ -76,7 +81,6 @@ for norm_type in ['Norm', 'NotNorm']:
     for k in k_list:
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'manhattan')
         f_scores.append(fscore)
-        # print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open(filename, 'a'))
 
 
     plt.figure()
@@ -85,16 +89,21 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(k_list, f_scores)
 
-    plt.savefig(str(norm_type) + '_Optimal_neighbors_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_manhattan.png')
     best_k_man = k_list[f_scores.index(max(f_scores))]
-    print(f'Optimal neighbors manhattan: {best_k_man}', file=open(str(norm_type) + '_Diffrent_K_manhattan.txt', 'w'))
+    print(f'Optimal neighbors manhattan: {best_k_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'w'))
+
+    accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, best_k_man, 'manhattan')
+    print(f'Stats {str(k)}-NN: \n\t Accuracy: {accuracy} \n\t Precision: {precision} \n\t Recall: {recall} \n\t Fscore: {fscore} \n\t Confusion Matrix: \n {confusionMatrix}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
+
+
     Optimal_neighbors_data_man = pd.DataFrame(list(zip(k_list, f_scores)), columns = ['Neighbor', 'fscore'])
-    print(f'Data:\n {Optimal_neighbors_data_man.to_string()}', file=open(str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
+    print(f'Data:\n {Optimal_neighbors_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'a'))
 
     # --------------------------------------------------------
 
     # FILENAME VARIABLE
-    filename = str(norm_type) + '_Features_euc.txt'
+    filename = 'results/' + str(norm_type) + '/' + str(norm_type) + '_Features_euc.txt'
 
     # Wyniki
     print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
@@ -126,16 +135,17 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_euc)
 
-    plt.savefig(str(norm_type) + '_Optimal_features_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_euclidean.png')
     best_feat_euc = feature_list[f_scores_euc.index(max(f_scores_euc))]
-    print(f'Optimal features euclidean: {best_feat_euc}', file=open(str(norm_type) + '_Diffrent_Features_euclidean.txt', 'w'))
+    print(f'Optimal features euclidean: {best_feat_euc} for best k: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'w'))
+
     Optimal_features_data_euc = pd.DataFrame(list(zip(feature_list, f_scores_euc)), columns = ['Feature', 'fscore'])
-    print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open(str(norm_type) + '_Diffrent_Features_euclidean.txt', 'a'))
+    print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'a'))
 
     # --------------------------------------------------------
 
     # FILENAME VARIABLE
-    filename = str(norm_type) + '_Features_man.txt'
+    filename = 'results/' + str(norm_type) + '/' + str(norm_type) + '_Features_man.txt'
 
     # Wyniki
     print (f'Features Ranking {sortedFeatures}', file=open(filename, 'w'))
@@ -167,8 +177,8 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_man)
 
-    plt.savefig(str(norm_type) + '_Optimal_features_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_manhattan.png')
     best_feat_man = feature_list[f_scores_man.index(max(f_scores_man))]
-    print(f'Optimal features manhattan: {best_feat_man}', file=open(str(norm_type) + '_Diffrent_Features_manhattan.txt', 'w'))
+    print(f'Optimal features manhattan: {best_feat_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'w'))
     Optimal_features_data_man = pd.DataFrame(list(zip(feature_list, f_scores_man)), columns = ['Feature', 'fscore'])
-    print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open(str(norm_type) + '_Diffrent_Features_manhattan.txt', 'a'))
+    print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'a'))
