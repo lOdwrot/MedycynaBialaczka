@@ -39,8 +39,8 @@ for norm_type in ['Norm', 'NotNorm']:
     # WYKRES
     sns.set()
     sns.set_palette(sns.color_palette("hls", len(sortedFeatures)))
-    # sns.pairplot(data, vars=X.columns, hue='K', diag_kind='hist', dropna=True, kind='scatter')
-    # plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png', transparent=True)
+    sns.pairplot(data, vars=X.columns, hue='K', diag_kind='hist', dropna=True, kind='scatter')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png', transparent=True)
 
     # --------------------------------------------------------
 
