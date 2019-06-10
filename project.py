@@ -171,7 +171,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.title('Confusion Matrix NM', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.coluns))
+    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png')
 
