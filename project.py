@@ -115,6 +115,7 @@ for norm_type in ['Norm', 'NotNorm']:
 
     # RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - EUC
     for feature in feature_list:
+        subData = None
         subData = data.copy()
         for dropedFeatureIndex in range (feature, len(sortedFeatures)):
             subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
@@ -127,6 +128,13 @@ for norm_type in ['Norm', 'NotNorm']:
         # Print stats for best_k_euc-NN
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(subData, best_k_euc, 'euclidean')
         f_scores_euc.append(fscore)
+
+    plt.figure()
+    plt.title('The optimal number of features(metric: euclidean)', fontweight='bold')
+    plt.xlabel('Number of Features')
+    plt.ylabel('fscore',)
+    plt.plot(feature_list, f_scores_euc)
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_euclidean.png')
 
     plt.figure()
     plt.title('The optimal number of features(metric: euclidean)', fontweight='bold')
@@ -161,6 +169,7 @@ for norm_type in ['Norm', 'NotNorm']:
 
     # RÓŻNA LICZBA CECH DLA WYLICZONEGO BESTA - MAN
     for feature in feature_list:
+        subData = None
         subData = data.copy()
         for dropedFeatureIndex in range (feature, len(sortedFeatures)):
             subData = subData.drop(sortedFeatures[dropedFeatureIndex], axis=1)
@@ -205,3 +214,19 @@ for norm_type in ['Norm', 'NotNorm']:
 
     Optimal_features_data_NM_man = pd.DataFrame(list(zip(feature_list, f_scores_NM_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'a'))
+    
+    '''
+    print(type(confusionMatrix))
+    print(sub_dates_man[best_feat_NM_man - 1])
+    print(confusionMatrix.shape)
+
+    df_cm = pd.DataFrame(array, index = [i for i in "ABCDEFGHIJK"],
+                  columns = [i for i in "ABCDEFGHIJK"])
+    sn.heatmap(df_cm, annot=True)
+    '''
+    print(type(sub_dates_man))
+    print(len(sub_dates_man))
+    # print(sub_dates_man)
+    print(len(sub_dates_man[0]))
+    print(len(sub_dates_man[10]))
+    
