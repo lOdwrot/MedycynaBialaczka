@@ -1,66 +1,9 @@
 \section{Ranking cech}
-	\blindtext
-	The table \ref{table:1} is an example of referenced \LaTeX elements.
-	\begin{table}[h!]
-		\centering
-		\begin{tabular}{|| c | c | c ||} 
-			 \hline
-			 Nr cechy & Nazwa cechy & Możliwe wartości \\ [0.5ex] 
-			 \hline\hline
-			 1 & Temperatura & 1, 2 \\ 
-			 2 & Anemia & 1, 2, 3 \\
-			 3 & Stopień krwawienia & 1, 2 \\
-			 4 & Miejsce krwawienia & 1, 2, 3, 4, 5, 6, 7, 8 \\
-			 5 & Bóle kości & 1, 2 \\
-			 6 & Wrażliwość mostka & 1, 2 \\
-			 7 & Powiększenie węzłów chłonnych & 1, 2 \\
-			 8 & Powiększenie wątroby & 1, 2 \\
-			 9 & Centralny układ nerwowy & 1, 2 \\
-			 10 & Powiększenie jąder & 1, 2 \\
-			 11 & Uszkodzone serce & 1, 2 \\
-			 12 & Gałka oczna & 1, 2 \\
-			 13 & Poziom WBC & 1, 2, 3 \\
-			 14 & Poziom RBC & 1, 2, 3 \\
-			 15 & Płytk krwi & 1, 2 \\
-			 16 & Niedojrzałe komórki & 1, 2 \\
-			 17 & Pobudzenie szpiku & 1, 2, 3 \\
-			 18 & Główne komórki & 1, 2, 3 \\
-			 19 & Poziom limfocytów & 1, 2, 3 \\
-			 20 & Reakcja & 1, 2 \\ [1ex] 
-			 \hline
-		\end{tabular}
-		\caption{Opis cech}
-		\label{table:1}
-	\end{table}
-
-	\begin{table}[h!]
-		\centering
-		\begin{tabular}{||c | c ||} 
-			 \hline
-			 Nr & Jednostk chorobowa \\ [0.5ex] 
-			 \hline\hline
-			 1 & L1 - type \\ 
-			 2 & L2 - type \\
-			 3 & L3 - type \\
-			 4 & Undifferentation \\
-			 5 & Differentation in part \\
-			 6 & Granuocylosisi \\
-			 7 & Granua mononucleaw \\
-			 8 & Mononucleacyble \\
-			 9 & Redikaukemia \\
-			 10 & Subatue grandblacyta \\
-			 11 & Granulacytarna \\
-			 12 & Lymphocytia \\
-			 13 & Granue mononclea \\
-			 14 & Mononuclea \\
-			 15 & Lymphosarcoma leukemia \\
-			 16 & Pamacea Leukemia \\
-			 17 & Multicapilary be laukemia \\
-			 18 & Acicople granulotyne leukemia \\
-			 19 & Basaphi granulocyte leukemia \\
-			 20 & Macronuclacycle teuekema \\ [1ex] 
-			 \hline
-		\end{tabular}
-		\caption{Jednostki chorobowe}
-		\label{table:1}
-	\end{table}
+	Selekcja cech dla danych ma 3 zalety:
+	
+	\begin{itemize}
+		\item \textbf{Redukcja przeładowania} - mniej niepotrzebnych/nieznaczących danych oznacza podejmowanie decyzji w oparciu o znaczące dane, a nie o \textit{szum},
+		\item \textbf{Zwiększenie celności} - mniej mylących danych oznacza lepszą celność/dokładność,
+		\item \textbf{Redukcja czasu trenowania} - mniej danych = szybszy algorytm.
+	\end{itemize}
+	

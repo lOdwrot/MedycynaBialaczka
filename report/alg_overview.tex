@@ -1,2 +1,14 @@
 \section{Omówienie algorytmu}
-	\blindtext
+	W pracy posłużyliśmy się dwoma najpopularniejszymi algorytmami minimalno-odległościowymi:
+	
+	\begin{itemize}
+		\item NM(ang. \textit{nearest mean}) - najbliższej średniej,
+		\item KNN(ang. \textit{k nearest neighbors}) - k najbliższych sąsiadów
+	\end{itemize}
+
+	Ideą tych algorytmów jest klasyfikacji danego osobnika do odpowiadającej mu klasy na podstawie minimalnych odległości do pewnych elementów swojego otoczenia.
+
+	\textbf{Najbliższej centroidy} - dla każdej klasy na podstawie wszystkich obiektów, wyliczana jest średnia centroida. Obiekt przypisywane jest na podstawie minimalnej odległości do tej centroidy.
+	
+	\textbf{K najbliżyszch sąsiadów} - ze znanych obiektów wybieramy k najbliższych klasyfikowanemu obiektowi. Nowy obiekt zostaje przypisany do klasy, w której znajduje się najwięcej z k reprezentantów.
+	
