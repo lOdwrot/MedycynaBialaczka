@@ -89,7 +89,6 @@ for norm_type in ['Norm', 'NotNorm']:
         accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForKMeans(data, k, 'manhattan')
         f_scores.append(fscore)
 
-
     plt.figure()
     plt.title('The optimal number of neighbors(metric: manhattan)', fontweight='bold')
     plt.xlabel('Number of Neighbors K')
@@ -176,7 +175,6 @@ for norm_type in ['Norm', 'NotNorm']:
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png')
 
-
     # --------------------------------------------------------
     feature_list = range(1, len(sortedFeatures) + 1)
     f_scores_man = []
@@ -237,7 +235,6 @@ for norm_type in ['Norm', 'NotNorm']:
 
     Optimal_features_data_NM_man = pd.DataFrame(list(zip(feature_list, f_scores_NM_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'a'))
-    
 
     plt.figure()
     plt.title('Confusion Matrix NM', fontweight='bold')
