@@ -13,11 +13,6 @@ from stats import calculateStatsForKMeans, calculateStatsForNM
 from dataLoad import getDataSetLeukemia, getDataSetIris
 import seaborn as sns
 
-best_data_euc_norm = None
-best_data_man_norm = None
-best_data_euc_not_norm = None
-best_data_man_not_norm = None
-
 # Load Data (param whether data should be normalized)
 for norm_type in ['Norm', 'NotNorm']:
     data = getDataSetLeukemia(True if norm_type == 'Norm' else False)
@@ -44,10 +39,8 @@ for norm_type in ['Norm', 'NotNorm']:
     # WYKRES
     sns.set()
     sns.set_palette(sns.color_palette("hls", len(sortedFeatures)))
-    # sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='kde', dropna=True, kind='scatter')
-    sns.pairplot(data, vars=sortedFeatures, hue='K', diag_kind='hist', dropna=True, kind='scatter')
-    # plt.show()
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png')
+    sns.pairplot(data, vars=X.columns, hue='K', diag_kind='hist', dropna=True, kind='scatter')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png', transparent=True)
 
     # --------------------------------------------------------
 
@@ -67,7 +60,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(k_list, f_scores)
 
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_euclidean.png', transparent=True)
     best_k_euc = k_list[f_scores.index(max(f_scores))]
     print(f'Optimal neighbors euclidean: {best_k_euc}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_euclidean.txt', 'w'))
 
@@ -93,7 +86,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.ylabel('fscore',)
     plt.plot(k_list, f_scores)
 
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_neighbors_manhattan.png', transparent=True)
     best_k_man = k_list[f_scores.index(max(f_scores))]
     print(f'Optimal neighbors manhattan: {best_k_man}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_K_manhattan.txt', 'w'))
 
@@ -131,14 +124,14 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_euc)
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_euclidean.png', transparent=True)
 
     plt.figure()
     plt.title('The optimal number of features(metric: euclidean)', fontweight='bold')
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_NM_euc)
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_euclidean.png', transparent=True)
 
     best_feat_euc = feature_list[f_scores_euc.index(max(f_scores_euc))]
     best_feat_NM_euc = feature_list[f_scores_NM_euc.index(max(f_scores_NM_euc))]
@@ -150,13 +143,13 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_euc = pd.DataFrame(list(zip(feature_list, f_scores_euc)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_euclidean.txt', 'a'))
 
-    plt.figure()
+    plt.figure(figsize = (15, 13))
     plt.title('Confusion Matrix KNN', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
     sns.heatmap(df_cm, cmap="Blues")
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_euclidean.png', bbox_inches='tight', transparent=True)
 
     print(f'Optimal features euclidean: {best_feat_NM_euc} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'w'))
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_euc[best_feat_NM_euc - 1], 'euclidean', True)
@@ -165,13 +158,13 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_NM_euc = pd.DataFrame(list(zip(feature_list, f_scores_NM_euc)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_euc.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_euclidean.txt', 'a'))
 
-    plt.figure()
+    plt.figure(figsize = (15, 13))
     plt.title('Confusion Matrix NM', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
     sns.heatmap(df_cm, cmap="Blues")
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png', bbox_inches='tight', transparent=True)
 
     # --------------------------------------------------------
     feature_list = range(1, len(sortedFeatures) + 1)
@@ -200,14 +193,14 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_man)
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_features_manhattan.png', transparent=True)
 
     plt.figure()
     plt.title('The optimal number of features(metric: manhattan)', fontweight='bold')
     plt.xlabel('Number of Features')
     plt.ylabel('fscore',)
     plt.plot(feature_list, f_scores_NM_man)
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Optimal_featuresNM_manhattan.png', transparent=True)
 
     best_feat_man = feature_list[f_scores_man.index(max(f_scores_man))]
     best_feat_NM_man = feature_list[f_scores_NM_man.index(max(f_scores_NM_man))]
@@ -219,13 +212,13 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_man = pd.DataFrame(list(zip(feature_list, f_scores_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_manhattan.txt', 'a'))
 
-    plt.figure()
+    plt.figure(figsize = (15, 13))
     plt.title('Confusion Matrix KNN', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
     sns.heatmap(df_cm, cmap="Blues")
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_manhattan.png', bbox_inches='tight', transparent=True)
 
     print(f'Optimal features manhattan: {best_feat_NM_man} for NM', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'w'))
     accuracy, precision, recall, fscore, confusionMatrix = calculateStatsForNM(sub_dates_man[best_feat_NM_man - 1], 'manhattan', True)
@@ -234,11 +227,11 @@ for norm_type in ['Norm', 'NotNorm']:
     Optimal_features_data_NM_man = pd.DataFrame(list(zip(feature_list, f_scores_NM_man)), columns = ['Feature', 'fscore'])
     print(f'Data:\n {Optimal_features_data_NM_man.to_string()}', file=open('results/' + str(norm_type) + '/' + str(norm_type) + '_Diffrent_Features_NM_manhattan.txt', 'a'))
 
-    plt.figure()
+    plt.figure(figsize = (15, 13))
     plt.title('Confusion Matrix NM', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = list(X.columns), columns = list(X.columns))
+    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
     sns.heatmap(df_cm, cmap="Blues")
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_manhattan.png')
+    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_manhattan.png', bbox_inches='tight', transparent=True)
     
