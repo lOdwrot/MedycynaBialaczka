@@ -6,9 +6,26 @@
 		\item KNN(ang. \textit{k nearest neighbors}) - k najbliższych sąsiadów
 	\end{itemize}
 
+	\bigbreak
 	Ideą tych algorytmów jest klasyfikacji danego osobnika do odpowiadającej mu klasy na podstawie minimalnych odległości do pewnych elementów swojego otoczenia.
 
+	\bigbreak
 	\textbf{Najbliższej centroidy} - dla każdej klasy na podstawie wszystkich obiektów, wyliczana jest średnia centroida. Obiekt przypisywane jest na podstawie minimalnej odległości do tej centroidy.
 	
 	\textbf{K najbliżyszch sąsiadów} - ze znanych obiektów wybieramy k najbliższych klasyfikowanemu obiektowi. Nowy obiekt zostaje przypisany do klasy, w której znajduje się najwięcej z k reprezentantów.
 	
+	\subsection{Miary odległości}
+	
+	Jako że mamy do czynienia z algorytmami opartymi na mierze długości - dobrze by było sobie tą miarę zdefiniować. My w naszym badaniu korzystamy z następujących metryk:
+	
+	\begin{itemize}
+		\item \textbf{Euklidesowa}, czyli zwykła odległość odcinka łączącego dwa punkty opisana wzorem:
+		
+		\[d(A,B)=\sqrt{\sum\limits_{i=1}^n((x_{iA}-x_{iB})^2)}\]
+		
+		\item \textbf{Manhattan}, czyli suma wartości bezwzględnych różnic współrzędnych dwóch punktów(można to sobie wyobrazić jako ruch taksówki w mieście o układzie ulic w szachownice). Wzór:
+		
+		\[d_1(\mathbf{p}, \mathbf{q}) = \|\mathbf{p} - \mathbf{q}\|_1 = \sum_{i=1}^n |p_i-q_i|\]
+		
+		, gdzie \textbf{p} i \textbf{q} są wektorami.
+	\end{itemize}
