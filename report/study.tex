@@ -14,7 +14,7 @@
 	
 	\subsection{Implementacja}
 	
-	W celu przeprowadzenia badania badań i wykonania potrzebnych pomiarów skorzystaliśmy z języka \textbf{Python} i obecnych dla niego bibliotek: \textbf{sklearn}, \textbf{pandas}, \textbf{matplotlib}, \textbf{seaborn}.
+	W celu przeprowadzenia badania i wykonania potrzebnych pomiarów skorzystaliśmy z języka \textbf{Python} i obecnych dla niego bibliotek: \textbf{sklearn}, \textbf{pandas}, \textbf{matplotlib}, \textbf{seaborn}.
 	
 	Wybór Pythona był spowodowany łatwością i szybkością implementacji, zarówno od strony dostępnych rozwiązań(biblioteki z których korzystaliśmy miały zaimplementowane wszystkie potrzebne nam algorytmy), jak i naszych umiejętności(znaliśmy oboje najlepiej właśnie Pythona).
 	
@@ -40,7 +40,7 @@
 		, gdzie $tp$ to ilość prawdziwie pozytywnych predykcji(poprawnie sklasyfikowane \textit{prawdy}), a $fn$ to ilość fałszywie negatywnych(niepoprawnie sklasyfikowanego \textit{fałszu}),
 		\item \textbf{fscore} - miara bardziej skomplikowana, będąca średnią ważoną dwóch powyższych,
 		\[F1 = \frac{2 * (precision * recall)}{ (precision + recall)} \] 
-		\item \textbf{confusionMatrix} - tablica błędów. Graficzna reprezentacja wszystkich wykonanych predykcji w postaci macierzy stanu faktycznego i wyliczonego przez nasz klasyfikator. Dla idealnej klasyfikacji zaznaczona jest tylko przekątna takiej macierzy.
+		\item \textbf{Confusion Matrix} - tablica błędów. Graficzna reprezentacja wszystkich wykonanych predykcji w postaci macierzy stanu faktycznego i wyliczonego przez nasz klasyfikator. Dla idealnej klasyfikacji zaznaczona jest tylko przekątna takiej macierzy.
 	\end{itemize}
 
 	W celu rozróżnieniu dwóch wyników w trakcie eksperymentu porównywaliśmy jego \textbf{fscore} i wybieraliśmy ten z większym wynikiem.
