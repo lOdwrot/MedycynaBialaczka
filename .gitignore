@@ -16,3 +16,4 @@ __pycache__
 
 # except
 !requirements.txt
+!report.pdf

@@ -1,2 +1,39 @@
 \section{Wnioski}
-	\blindtext
+
+	Najlepsze wyniki dla algorytmu \textit{k} - najbliższych sąsiadów uzyskaliśmy dla danych znormalizowanych, z wykorzystaniem miary manhattan i zostały zaprezentowane w tablicy \ref{7}.
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|| c | c  | c | c | c | c ||} 
+			\hline
+			Liczba cech & Najlepsze k & Acc. &  Prec. & Rec. & F-scr \\ [0.5ex] 
+			\hline\hline
+			19 & 13 &  0.279 & 0.313 & 0.279 & 0.264 \\[1ex] 
+			\hline
+		\end{tabular}
+		\caption{najlepszy wynik KNN}
+		\label{7}
+	\end{table}
+	
+	Dla algorytmu najbliższej centroidy, najlepsze wyniki dały dane znormalizowane z miarę euklidesową i zostały zaprezentowane w tablicy \ref{8}.
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|| c | c  | c | c | c ||} 
+			\hline
+			Liczba cech & Acc. &  Prec. & Rec. & F-scr \\ [0.5ex] 
+			\hline\hline
+			19 & 0.291 & 0.302 & 0.291 & 0.282 \\ [1ex] 
+			\hline
+		\end{tabular}
+		\caption{Najlepszy wynik NM}
+		\label{8}
+	\end{table}
+
+	Zgodnie z wynikami omówionymi w poprzednim rozdziale, stwierdzamy że:
+	\begin{itemize}
+		\item Normalizacja pozytywnie wpływa na wyniki predykcji,
+		\item Użyta mira nie wpłynęła  znaczącą na wyniki,
+		\item Klasyfikator lepiej sobie radzi dla niższych wartości parametru \textit{k},
+		\item Ilość cech dość szybko dochodzi do momentu w którym uzyskiwane wyniki są sub optymalne, potem zależność ta się wypłaszcza.
+	\end{itemize}

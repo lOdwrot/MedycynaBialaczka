@@ -1,2 +1,28 @@
-\section{Wyniki}
-	\blindtext
+\section{Omówienie wyników}
+
+	Zastosowane algorytmy klasyfikacji dla Naszych danych nie przynoszą zadowalających wyników. Uzyskujemy celność na poziomie ~30\%
+	
+	\subsection{Wyznaczenie K}
+	
+	Jak widać na tabeli \ref{4} najlepsze wyniki uzyskuje się dla relatywnie małej ilości sąsiadów. Co więcej rysunki \ref{fig:2}, \ref{fig:3}, \ref{fig:4}, \ref{fig:5} pokazują tendencję malejącą wraz ze wzrostem liczby sąsiadów, co pokrywa się to wynikami opisanymi w literaturze \cite{3}
+	
+	\subsection{Wyznaczenie Liczby cech}
+	
+	Jak widać na tabelach \ref{5}, \ref{6} najlepsze wyniki uzyskujemy dla dużej liczby cech, patrząc jednak na wykresy \ref{fig:6}, \ref{fig:7}, \ref{fig:8}, \ref{fig:9} widać ewidentnie tendencję że dodawanie nowych cech dość szybko zwiększa jakoś predykcji, jednak równie szybko dochodzimy do momentu w którym uzyskujemy wyniki sub optymalne i dodawanie nowych cech zmienia jakość tylko nieznacznie.
+	
+	\subsection{Wpływ normalizacji}
+	
+	Już w momencie gdzie wybieramy optymalna wartość \textit{k} dane znormalizowane uzyskują lepsze wyniki od danych nieznormalizowanych, patrz tabela \ref{4}. Po ustaleniu optymalnej ilości cech tendencja ta nadal się utrzymuje(tabela \ref{5}, \ref{6}).
+	
+	Warto jednak zaznaczyć że różnice nie są duże. Wynika to z tego że i tak większość naszych cech  ma charakter binarnych, więc jest niejako znormalizowana. 
+	
+	\subsection{Wpływ użytej miary}
+	
+	Zbierając wyniki z tabel \ref{4} \ref{5}, \ref{6} nie można jednoznacznie wybrać lepszej miary. Dla wybierania optymalnego \textit{k} lepiej spisuję się miara euklidesowa zarówna dla danych znormalizowanych jak i nie. Dla optymalizacji cech, dla obu typów danych, najlepsze wyniki uzyskuje miara manhattan. Optymalizacja cech dla algorytmu najbliższej centroidy dla danych znormalizowanych wykazuje lepsze wyniki dla miary euklidesowej, podczas gdy dla danych nieznormalizowanych ten sam algorytm lepiej wykonuje predykcję dla miary manhattan.
+	
+	Warto zaznaczyć że wyniki dla obu miar są zbliżone.
+	
+	\subsection{Macierz Błędów}
+	 
+	 Dla wszystkich eksperymentów, stworzyliśmy macierze błędów widoczne na rysunkach \ref{fig:14} - \ref{fig:21}. Jak widać na każdej z nich można dostrzec zarys mocniej zaznaczonej przekątnej.
+	 

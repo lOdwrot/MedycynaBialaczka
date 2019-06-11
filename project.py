@@ -13,6 +13,8 @@ from stats import calculateStatsForKMeans, calculateStatsForNM
 from dataLoad import getDataSetLeukemia, getDataSetIris
 import seaborn as sns
 
+k_labels = ['L1 - type', 'L2 - type', 'L3 - type', 'Undifferentation', 'Differentation in part', 'Granuocylosisi', 'Granua mononucleaw', 'Mononucleacyble', 'Redikaukemia', 'Subatue grandblacyta', 'Granulacytarna', 'Lymphocytia', 'Granue mononclea', 'Mononuclea', 'Lymphosarcoma leukemia', 'Pamacea Leukemia', 'Multicapilary be laukemia', 'Acicople granulotyne leukemia', 'Basaphi granulocyte leukemia', 'Macronuclacycle teuekema']
+
 # Load Data (param whether data should be normalized)
 for norm_type in ['Norm', 'NotNorm']:
     data = getDataSetLeukemia(True if norm_type == 'Norm' else False)
@@ -39,8 +41,8 @@ for norm_type in ['Norm', 'NotNorm']:
     # WYKRES
     sns.set()
     sns.set_palette(sns.color_palette("hls", len(sortedFeatures)))
-    sns.pairplot(data, vars=X.columns, hue='K', diag_kind='hist', dropna=True, kind='scatter')
-    plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png', transparent=True)
+    # sns.pairplot(data, vars=X.columns, hue='K', diag_kind='hist', dropna=True, kind='scatter')
+    # plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Feature_plot.png', transparent=True)
 
     # --------------------------------------------------------
 
@@ -147,7 +149,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.title('Confusion Matrix KNN', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
+    df_cm = pd.DataFrame(confusionMatrix, index = k_labels, columns = k_labels)
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_euclidean.png', bbox_inches='tight', transparent=True)
 
@@ -162,7 +164,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.title('Confusion Matrix NM', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
+    df_cm = pd.DataFrame(confusionMatrix, index = k_labels, columns = k_labels)
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_euclidean.png', bbox_inches='tight', transparent=True)
 
@@ -216,7 +218,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.title('Confusion Matrix KNN', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
+    df_cm = pd.DataFrame(confusionMatrix, index = k_labels, columns = k_labels)
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_KNN_manhattan.png', bbox_inches='tight', transparent=True)
 
@@ -231,7 +233,7 @@ for norm_type in ['Norm', 'NotNorm']:
     plt.title('Confusion Matrix NM', fontweight='bold')
     plt.xlabel('Features')
     plt.ylabel('Features',)
-    df_cm = pd.DataFrame(confusionMatrix, index = sortedFeatures, columns = sortedFeatures)
+    df_cm = pd.DataFrame(confusionMatrix, index = k_labels, columns = k_labels)
     sns.heatmap(df_cm, cmap="Blues")
     plt.savefig('results/' + str(norm_type) + '/' + str(norm_type) + '_Confusion_Matrix_NM_manhattan.png', bbox_inches='tight', transparent=True)
     
