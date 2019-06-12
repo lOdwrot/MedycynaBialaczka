@@ -1,0 +1,19 @@
+# Python files
+__pycache__
+
+# Some data
+*.txt
+*.png
+
+# Tex files
+*.aux
+*.log
+*.bcf
+*.xml
+*.gz
+*.pdf
+*.toc
+
+# except
+!requirements.txt
+!report.pdf

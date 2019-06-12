@@ -1,0 +1,19 @@
+# project.py: 1,2
+matplotlib == 3.0.3
+
+# dataLoad.py: 3
+# project.py: 7
+# stats.py: 7
+numpy == 1.16.3
+
+# dataLoad.py: 1
+# project.py: 5,6
+pandas == 0.24.2
+
+# dataLoad.py: 2
+# project.py: 10,11
+# stats.py: 2,3,4,5,6
+scikit_learn == 0.20.3
+
+# project.py: 14
+seaborn == 0.9.0

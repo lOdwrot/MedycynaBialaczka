@@ -1,0 +1,52 @@
+\section{Ranking cech}
+	Selekcja cech dla danych ma 3 najważniejsze zalety:
+	
+	\begin{itemize}
+		\item \textbf{Redukcja przeładowania} - mniej niepotrzebnych/nieznaczących danych oznacza podejmowanie decyzji w oparciu o znaczące dane, a nie o \textit{szum},
+		\item \textbf{Zwiększenie celności} - mniej mylących danych oznacza lepszą celność/dokładność,
+		\item \textbf{Redukcja czasu trenowania} - mniej danych = szybszy algorytm.
+	\end{itemize}
+	
+	\bigbreak
+	Jaki jednak algorytm rankingowy dla cech zastosować?
+	
+	\begin{itemize}
+		\item \textbf{Testy Statystyczne} - sprawdzenie zależności poszczególnej cechy a wynikowej klasy w oparciu o test statystyczny np. test chi-kwadrat,
+		\item \textbf{Rekurencyjna eliminacja cech} - sprawdzenie zależności poprzez budowanie modelu, przeprowadzeniu statystyk, zbudowaniu ponownie modelu z mniejszą ilością cech i porównanie statystyk. Im lepsze statystyki tym lepszy zestaw cech. Metoda czasochłonna.,
+		\item \textbf{Analiza głównych składowych} - interpretacja zbioru jako chmury N-punktów(obserwacji) w przestrzeni K-wymiarowej(zmiennych). Zadaniem algorytmy jest takie obrócenie układu współrzędnych by maksymalizować wariancję pierwszej współrzędnej, a następnie kolejnych.
+	\end{itemize}
+	
+	\bigbreak
+	Dla naszych danych przeprowadziliśmy ranking cech przy pomocy testu statystycznego chi-kwadrat. W tabeli \ref{3} przedstawiliśmy wynik rankingu cech dla danych znormalizowanych i nie.
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|| c | c ||} 
+			\hline
+			Dane znormalizowane & Dane nieznormalizowane \\ [0.5ex] 
+			\hline\hline
+			Stan pobudzenia szpiku & Miejsce krwawienia \\ 
+			Anemia & Stan pobudzenia szpiku \\
+			Gałka oczna & Poziom limfocytów \\
+			Obniżenie poziomu RBC & Anemia \\
+			Główne komórki szpiku & Obniżenie poziomu RBC \\
+			Poziom limfocytów & Główne komórki szpiku \\
+			Liczba płytek krwi & Gałka oczna \\
+			Wrażliwość mostka & Liczba płytek krwi \\
+			Powiększenie jąder & Wrażliwość mostka \\
+			Reakcja & Powiększenie jąder \\
+			Poziom WBC & Reakcja \\
+			Stopień krwawienia & Poziom WBC \\
+			Powiększenie węzłów chłonnych & Uszkodzenie w sercu \\
+			Uszkodzenie w sercu & Ból kości \\
+			Ból kości & Powiększenie węzłów chłonnych \\
+			Centralny układ nerwowy & Niedojrzałe komórki \\
+			Miejsce krwawienia & Centralny układ nerwowy \\
+			Niedojrzałe komórki & Powiększenie wątroby\\
+			Powiększenie wątroby & Stopień krwawienia \\
+			Temperatura & Temperatura \\ [1ex] 
+			\hline
+		\end{tabular}
+		\caption{Ranking cech}
+		\label{3}
+	\end{table}

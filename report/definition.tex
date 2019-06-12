@@ -1,0 +1,74 @@
+\section{Definicja problemu rozpoznawania}
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|| c | c | c ||} 
+			\hline
+			Nr cechy & Nazwa cechy & Możliwe wartości \\ [0.5ex] 
+			\hline\hline
+			1 & Temperatura & 1, 2 \\ 
+			2 & Anemia & 1, 2, 3 \\
+			3 & Stopień krwawienia & 1, 2 \\
+			4 & Miejsce krwawienia & 1, 2, 3, 4, 5, 6, 7, 8 \\
+			5 & Bóle kości & 1, 2 \\
+			6 & Wrażliwość mostka & 1, 2 \\
+			7 & Powiększenie węzłów chłonnych & 1, 2 \\
+			8 & Powiększenie wątroby & 1, 2 \\
+			9 & Centralny układ nerwowy & 1, 2 \\
+			10 & Powiększenie jąder & 1, 2 \\
+			11 & Uszkodzone serce & 1, 2 \\
+			12 & Gałka oczna & 1, 2 \\
+			13 & Poziom WBC & 1, 2, 3 \\
+			14 & Poziom RBC & 1, 2, 3 \\
+			15 & Płytk krwi & 1, 2 \\
+			16 & Niedojrzałe komórki & 1, 2 \\
+			17 & Pobudzenie szpiku & 1, 2, 3 \\
+			18 & Główne komórki & 1, 2, 3 \\
+			19 & Poziom limfocytów & 1, 2, 3 \\
+			20 & Reakcja & 1, 2 \\ [1ex] 
+			\hline
+		\end{tabular}
+		\caption{Opis cech}
+		\label{1}
+	\end{table}
+
+	Z dostarczonych Nam danych wszystkie cechy mają charakter dyskretny, przy czym te o numerach: \textbf{1}, \textbf{3}, \textbf{5}, \textbf{6}, \textbf{7}, \textbf{8}, \textbf{9}, \textbf{10}, \textbf{11}, \textbf{12}, \textbf{15}, \textbf{16}, \textbf{20} mają właściwości \textbf{binarne}(przyjmują wartość 1 lub 2), a te o numerach: \textbf{2}, \textbf{4}, \textbf{13}, \textbf{14}, \textbf{17}, \textbf{18}, \textbf{19} są cechami \textbf{wielowartościowymi}. Wszystkie cechy zostały opisane w tabeli \ref{1}
+	
+	Wymienione cechy pozwalają na klasyfikację danego osobnika do jednej z 20 klas przedstawionych w tabeli \ref{2}
+
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{||c | c ||} 
+			\hline
+			Nr & Jednostk chorobowa \\ [0.5ex] 
+			\hline\hline
+			1 & L1 - type \\ 
+			2 & L2 - type \\
+			3 & L3 - type \\
+			4 & Undifferentation \\
+			5 & Differentation in part \\
+			6 & Granuocylosisi \\
+			7 & Granua mononucleaw \\
+			8 & Mononucleacyble \\
+			9 & Redikaukemia \\
+			10 & Subatue grandblacyta \\
+			11 & Granulacytarna \\
+			12 & Lymphocytia \\
+			13 & Granue mononclea \\
+			14 & Mononuclea \\
+			15 & Lymphosarcoma leukemia \\
+			16 & Pamacea Leukemia \\
+			17 & Multicapilary be laukemia \\
+			18 & Acicople granulotyne leukemia \\
+			19 & Basaphi granulocyte leukemia \\
+			20 & Macronuclacycle teuekema \\ [1ex] 
+			\hline
+		\end{tabular}
+		\caption{Jednostki chorobowe}
+		\label{2}
+	\end{table}
+
+	\subsection{Normalizacja}
+		To proces wstępnej obróbki danych, gdzie wszystkie cechy są sprowadzone do tego samego zakresu od 0 do 1. Czyli w naszej sytuacji dla np.  \textit{Miejsca krwawienia}, które normalnie opisywane jest przy pomocy liczby ze zbioru: [1, 2 , 3 , 4,  5 , 6, 7 , 8], teraz będzie opisywane zbiorem: [0.125, 0.25, 0.373, 0.5, 0.625, 0.75, 0.875, 1.0]
+	
+		Opisane dalej eksperymenty przeprowadzaliśmy dla danych znormalizowanych i nie. Jednym z elementów eksperymentu jest porównanie i określenie wpływu tego zabiegu.

@@ -1,0 +1,97 @@
+\section{Przebieg eksperymentu}
+
+	\subsection{Wyznaczenie najlepszej liczby \textit{k} sąsiadów}
+		
+		Ten krok eksperymentu przeprowadziliśmy tylko dla algorytmu k-najbliższych sąsiadów. Dla algorytmu Najbliższej centroidy nie było sensu go przeprowadzać - brak parametru \textit{k}.
+		\bigbreak
+		Stworzyliśmy listę \textit{k}-sąsiadów. Lista składała się z nieparzystych liczb z zakresu 1 -50. Nieparzystych, by etap podejmowania decyzji  przez klasyfikator nie był uzależniony od losowości(sytuacji gdy dany element ma taką samą ilość różnych sąsiadów wokół). Następnie dla każdej liczby z tego zakresu przeprowadziliśmy klasyfikację i wybraliśmy jako najlepszą tą, której wynik \textbf{fscore} był największy.
+		
+		Wyniki naszych obliczeń przedstawione są na rysunkach \ref{fig:2}, \ref{fig:3}, \ref{fig:4} i \ref{fig:5}, oraz przedstawione w tabeli \ref{4}(Legenda typów: \textbf{1 - Znormalizowane, Euklides}; \textbf{2 - Znormalizowane, Manhattan}; \textbf{3 - Nieznormalizowane, Euklides}; \textbf{4 - Nieznormalizowane, Manhattan})
+		
+		\begin{table}[h!]
+			\centering
+			\begin{tabular}{|| c | c | c  | c | c | c ||} 
+				\hline
+				Typ & Najlepsze k & Accuracy &  Precision & Recall & Fscore \\ [0.5ex] 
+				\hline\hline
+				1 & 7 & 0.269 & 0.331 & 0.269 & 0.261 \\ 
+				2 & 13 &  0.273 & 0.302 & 0.273 & 0.257 \\
+			   	3 & 1 &  0.251 & 0.286 & 0.251 & 0.249 \\
+				4 & 9 &  0.260 & 0.310 & 0.260 & 0.247\\[1ex] 
+				\hline
+			\end{tabular}
+			\caption{Wyniki wyznaczania najlepszej liczby \textit{k} sąsiadów}
+			\label{4}
+		\end{table}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth,keepaspectratio]{Norm_Optimal_neighbors_euclidean.png}
+			\captionsetup{justification=centering}
+			\caption{Dane: znormalizowane, miara: euklidesowa}
+			\label{fig:2}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth,keepaspectratio]{Norm_Optimal_neighbors_manhattan.png}
+			\captionsetup{justification=centering}
+			\caption{Dane: znormalizowane, miara: manhattan}
+			\label{fig:3}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth,keepaspectratio]{NotNorm_Optimal_neighbors_euclidean.png}
+			\captionsetup{justification=centering}
+			\caption{Dane: nieznormalizowane, miara: euklidesowa}
+			\label{fig:4}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth,keepaspectratio]{NotNorm_Optimal_neighbors_manhattan.png}
+			\captionsetup{justification=centering}
+			\caption{Dane: nieznormalizowane, miara: manhattan}
+			\label{fig:5}
+		\end{figure}
+	
+	\subsection{Dla danego \textit{k} wyznaczenie najlepszej ilości cech}
+		
+		Ten krok eksperymentu przeprowadziliśmy zarówno dla algorytmu k-najbliższych sąsiadów jak i dla algorytmu najbliższej centroidy. Przy czym w tym drugim wypadku nie parametryzowaliśmy wielkości \textit{k}, jako że jej nie ma.
+		\bigbreak
+		Ideą było wykorzystanie rankingu cech z tabeli \ref{3} i wyliczenie dla nich statystyk w oparciu o wcześniej wyznaczone \textit{k}
+		\bigbreak
+		Wyniki przedstawione są na rysunkach \ref{fig:6}, \ref{fig:7}, \ref{fig:8}, \ref{fig:9} dla danych znormalizowanych, i na rysunkach \ref{fig:10}, \ref{fig:11}, \ref{fig:12}, \ref{fig:13} dla danych nieznormalizowanych. Oraz zebrane w tabeli \ref{5} i \ref{6}(Legenda typów: \textbf{1 - Znormalizowane, Euklides}; \textbf{2 - Znormalizowane, Manhattan}; \textbf{3 - Nieznormalizowane, Euklides}; \textbf{4 - Nieznormalizowane, Manhattan})
+		
+		\begin{table}[h!]
+			\centering
+			\begin{tabular}{|| c | c | c  | c | c | c | c ||} 
+				\hline
+				Typ & Liczba cech & Najlepsze k & Acc. &  Prec. & Rec. & F-scr \\ [0.5ex] 
+				\hline\hline
+				1 & 10 & 7 & 0.260 & 0.308 & 0.260 & 0.246 \\ 
+				2 & 19 & 13 &  0.279 & 0.313 & 0.279 & 0.264 \\
+				3 & 20 & 1 &  0.249 & 0.260 & 0.249 & 0.242 \\
+				4 & 18 & 9 &  0.264 & 0.308 & 0.264 & 0.253\\[1ex] 
+				\hline
+			\end{tabular}
+			\caption{Algorytm \textit{k} - najbliższych sąsiadów - optymalna liczba cech}
+			\label{5}
+		\end{table}
+	
+		\begin{table}[h!]
+			\centering
+			\begin{tabular}{|| c | c | c  | c | c | c ||} 
+				\hline
+				Typ & Liczba cech & Acc. &  Prec. & Rec. & F-scr \\ [0.5ex] 
+				\hline\hline
+				1 & 19 & 0.291 & 0.302 & 0.291 & 0.282 \\ 
+				2 & 12 &  0.252 & 0.284 & 0.252 & 0.241 \\
+				3 & 20 &  0.215 & 0.272 & 0.215 & 0.213 \\
+				4 & 17 &  0.281 & 0.304 & 0.281 & 0.275\\[1ex] 
+				\hline
+			\end{tabular}
+			\caption{Algorytm Najbliższych centroidów - optymalna liczba cech}
+			\label{6}
+		\end{table}
